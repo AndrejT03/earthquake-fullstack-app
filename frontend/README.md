@@ -1,16 +1,40 @@
-# React + Vite
+# Frontend - Earthquake Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite frontend for displaying and deleting earthquakes, and triggering backend fetch.
 
-Currently, two official plugins are available:
+## Project setup instructions
+1. Requirements:
+   - Node.js 20+
+   - npm
+2. Open a terminal in `frontend`.
+3. Install dependencies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## How to run frontend
+```bash
+cd earthquake_management/frontend
+npm install
+npm run dev
+```
 
-## React Compiler
+Frontend runs by default on `http://localhost:5173`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Backend integration
+- Frontend service uses: `http://localhost:8080/api/earthquakes`
+- UI actions:
+  - `Fetch Latest Earthquakes` -> `GET /api/earthquakes/fetch`
+  - Table load -> `GET /api/earthquakes`
+  - Delete button -> `DELETE /api/earthquakes/{id}`
 
-## Expanding the ESLint configuration
+## Database configuration steps
+- Frontend has no direct database configuration.
+- Backend must be configured and running with PostgreSQL (see `backend/README.md`).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Any assumptions made
+- Backend is available at `http://localhost:8080`.
+- CORS is allowed for origin `http://localhost:5173`.
+- Returned data contains fields: `id`, `magnitude`, `place`, `title`, `time`.
+
+## Any optional improvements implemented
+- `axios` service layer (`src/services/earthquakeService.js`) is used instead of inline API calls.
+- Bootstrap styling is used for the table and action buttons.
+- The list refreshes automatically after fetch and delete actions.
